@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap');
+
+*{
+    font-family: "Playwrite AU SA", cursive;
+    margin: 0;
+    padding: 0;
+    overflow: hidden
+}
+
+section {
+    display: flex;
+    flex-direction: column; /* Change to column to stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(186, 115, 89, 0.365);
+}
+
+.contenedor {
+    /* Add this class to the container div */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically within the container */
+    align-items: center; /* Center elements horizontally within the container */
+    margin-top: 50px;
+}
+
+.contenedor h2{
+    text-align: center;
+}
+.input-contenedor{
+    position: relative;
+    margin: 10px 0  ;
+    width: 300px;
+    border-bottom: 2px solid brown;
+}
+.input-contenedor label{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    transition: .6s;
+}
+input:focus ~ label,
+input:valid ~ label{
+    top: -5px;
+}
+.input-contenedor input{
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: -35px 0 5px;
+
+}
+.input-contenedor i{
+    position: absolute;
+    color: brown;
+    font-size: 1.6rem;
+    top: 19px;
+    right: 8px;
+}
+.olvidar{
+    margin: 10px 0 15px;
+    font-size: .9em;
+    display: flex;
+    justify-content: center;
+}
+.olvidar label input{
+    margin: 3px;
+}
+.olvidar a{
+    color: black;
+    text-decoration: none;
+    transition: .3s;
+    font-size: .9em;
+}
+.olvidar a:hover{
+    text-decoration: underline;
+}
+button{
+    width: 100%;
+    height: 45px;
+    border-radius: 40px;
+    background-color: brown;
+    color: wheat;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: .6s;
+}
+button:hover{
+    opacity: .9;
+}
+.registrar{
+    font-size: .8rem;
+    text-align: center;
+    margin: 20px 0 10px;
+}
+.registrar p a{
+    text-decoration:  none;
+    font-weight: bold;
+    transition:.3s ;
+    color: brown;
+}
+.registrar p a:hover{
+    text-decoration: underline;
+}
+.imgaen {
+    /* Remove the class from the image element */
+    width: 100px; /* Adjust the width as needed */
+    height: auto;
+    
+}
+img{
+    width: 400px;
+}
