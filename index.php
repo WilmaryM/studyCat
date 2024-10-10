@@ -5,7 +5,7 @@
     <script src="https://kit.fontawesome.com/c00593a25a.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyCat</title>
-    <link rel="stylesheet" href="/css/estilo.css">
+    <link rel="stylesheet" href="/asset/css/estilo.css">
 </head>
 <body>
 
@@ -49,7 +49,7 @@
         </div> 
 
         <div class="imgaen"></div>
-            <img src="/img/2.png" alt="gatito teacher">
+            <img src="asset/img/2.png" alt="gatito teacher">
         </div>
     </section>
 
@@ -105,6 +105,6 @@
 
 
 
-    <script type="module" src= "/js/app.js"></script>
+    <script type="module" src= "/asset/js/app.js"></script>
 </body>
 </html>
