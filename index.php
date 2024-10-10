@@ -5,7 +5,7 @@
     <script src="https://kit.fontawesome.com/c00593a25a.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyCat</title>
-    <link rel="stylesheet" href="/asset/css/estilo.css">
+    <link rel="stylesheet" href="asset/css/estilo.css">
 </head>
 <body>
 
