@@ -46,7 +46,7 @@
                 </div>
 
             </div>
-        </div> 
+        </div>
 
         <div class="imgaen"></div>
             <img src="asset/img/2.png" alt="gatito teacher">
@@ -94,9 +94,8 @@
                     <input type="password" id="confirmar_password" name="confirmar_password" required>
                     <label for="confirmar_password">Confirmar contraseña</label>
                     </div>
-                        
-                </form> 
-                
+                </form>
+
                 <button type="submit">Registrarse</button>
             </div>
         </div>
@@ -105,6 +104,6 @@
 
 
 
-    <script type="module" src= "/asset/js/app.js"></script>
+    <script type="module" src= "asset/js/app.js"></script>
 </body>
 </html>
