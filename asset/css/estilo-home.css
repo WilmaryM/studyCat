@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap');
+
+*{
+    font-family: "Playwrite AU SA", cursive;
+    margin: 0;
+    padding: 0;
+  
+}
+
+
+.icon{
+    color: brown;
+}
+.logo{
+    width: 5px;
+}
+.logo-img{
+  position: absolute;
+  width: 100px;
+}
+.header .titulo{
+  position: absolute;
+  right:30%;
+  top: 3%;
+  font-size: 30px;
+
+}
+nav ul {
+    list-style: none; /* Elimina las viñetas */
+    margin: 0;
+    padding: 20px;
+    background-color: rgba(229, 118, 77, 0.365);/* Color de fondo */
+    overflow: hidden; /* Evita desbordamientos */
+}
+
+nav li {
+    float: right; /* Coloca los elementos horizontalmente */
+  }
+  
+  nav li a {
+    display: block; /* Convierte los enlaces en bloques */
+    color: #333; /* Color del texto */
+    text-align: center; /* Alinea el texto al centro */
+    padding: 14px 16px; /* Espaciado interno */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+  }
+  
+  nav li a:hover {
+    background-color: rgba(153, 76, 48, 0.365);/* Color de fondo al pasar el ratón */
+  }
+
+.contenedor{
+    background-color: rgba(186, 115, 89, 0.365);
+  }
+
+  .nombre-user{
+    color: brown;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 0px 0px 50px;
+  }
+
+.calendar{
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.task{
+  border: 1px solid black;
+  border-radius: 15px;
+  display: flex; /* Activa Flexbox */
+  justify-content: space-around; /* Distribuye las tareas uniformemente con espacio alrededor */
+  align-items: center; /* Centra verticalmente las tareas */
+  flex-wrap: wrap; /* Permite que las tareas se ajusten a varias líneas si no caben */
+  padding: 10px; /* Espacio interno */
+  height: 300px;
+    min-height: 200px;
+    box-sizing: border-box;
+    margin: 20px 50px;
+    background-color: rgba(153, 76, 48, 0.365);/* Color de fondo al pasar el ratón */
+
+
+}
+
+.titulo{
+  width: 100%; /* Ancho completo para el título */
+  text-align: center; /* Alineación centrada */
+  margin-bottom: 20px; /* Espacio entre el título y las tareas */
+}
+.tarea{
+  width: 200px; /* Ancho fijo para cada tarea (ajustar según necesidad) */
+  margin-bottom: 5px; /* Espacio entre las tareas (solo si se envuelven) */
+  box-sizing: border-box; /* Incluye el padding y el borde en el ancho y alto */
+  padding: 10px;
+}
+
+.articulos{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  height: 300px;
+  min-height: 200px;
+  box-sizing: border-box;
+  margin: 20px 50px;
+
+}
+
+.articulo{
+  background-color: rgba(153, 76, 48, 0.365);/* Color de fondo al pasar el ratón */
+  width: 300px;
+  padding: 10px;
+  border-radius:15px;
+
+}

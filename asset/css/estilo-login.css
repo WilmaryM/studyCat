@@ -22,7 +22,7 @@ section {
     display: flex;
     flex-direction: column; /* Stack elements vertically within the container */
     align-items: center; /* Center elements horizontally within the container */
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .contenedor h2{
@@ -36,11 +36,14 @@ section {
 }
 .input-contenedor label{
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 10%;
     transform: translateY(-50%);
     font-size: 1rem;
     transition: .6s;
+}
+.input-contenedor .user{
+    top: 70%;
 }
 input:focus ~ label,
 input:valid ~ label{
@@ -120,9 +123,11 @@ button:hover{
     width: 100px; /* Adjust the width as needed */
     height: auto;
     
+    
 }
 img{
     width: 400px;
+    padding: 0px 0px 20px 0px;
 }
 
 #registrar{
