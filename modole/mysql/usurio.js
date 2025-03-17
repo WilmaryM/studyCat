@@ -1,15 +1,14 @@
-/* import mysql from 'mysql2/promise'
+import { createPool } from 'mysql'
+require('dotenv').config()
 
-const DEFAULT_CONFIG = {
-  host: 'localhost',
-  user: 'root',
-  port: 3306,
-  password: '',
-  database: 'bas_gatuna'
-}
- const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
+const pool = createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+})
 
- const connection = await mysql.createConnection(connectionString)
-
-<<<<<<< Tabnine <<<<<<<
- */
+export default pool.promise()
