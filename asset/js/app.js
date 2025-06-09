@@ -4,7 +4,7 @@ const form = document.getElementById('login-form')
 form.addEventListener('submit', async (e) => {
   e.preventDefault()
 
-  const email = form.email.value
+  const userHandle = form.user_handle.value
   const password = form.password.value
 
   try {
@@ -13,27 +13,28 @@ form.addEventListener('submit', async (e) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ user_handle: userHandle, password })
+
     })
 
     const data = await res.json()
 
     if (res.ok) {
-      alert('Login exitoso')
-      console.log(data.token)
+      alert('Registro exitoso')
+      console.log(data)
 
-      // Guardar el nombre de usuario en localStorage
+      localStorage.removeItem('userHandle')
+
+      // Guardar el userHandle en localStorage para mostrarlo en home.html
       localStorage.setItem('userHandle', data.user)
 
       // Redirigir al home
       window.location.href = 'home.html'
     } else {
-      // eslint-disable-next-line no-undef
       alert(data.error || 'Error al iniciar sesión')
     }
   } catch (error) {
     console.error('Error de red:', error)
-    // eslint-disable-next-line no-undef
     alert('Error al conectar con el servidor')
   }
 })
@@ -46,7 +47,7 @@ registerForm.addEventListener('submit', async (e) => {
   const nombre = registerForm.nombre.value
   const apellido = registerForm.apellido.value
   const email = registerForm.email.value
-  const user = registerForm.user.value
+  const user = registerForm.user_handle.value
   const password = registerForm.password.value
   const confirmarPassword = registerForm.confirmar_password.value
 
@@ -63,7 +64,7 @@ registerForm.addEventListener('submit', async (e) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        firts_name: nombre,
+        first_name: nombre,
         last_name: apellido,
         email_address: email,
         user_handle: user,
@@ -77,6 +78,10 @@ registerForm.addEventListener('submit', async (e) => {
       // eslint-disable-next-line no-undef
       alert('Registro exitoso')
       console.log(data)
+      localStorage.removeItem('userHandle')
+      localStorage.setItem('userHandle', data.user)
+      // Redirigir al usuario a la página de inicio después del registro exitoso
+      window.location.href = 'home.html'
     } else {
       alert(data.error || 'Error al registrarse')
     }
@@ -85,3 +90,42 @@ registerForm.addEventListener('submit', async (e) => {
     alert('No se pudo conectar al servidor')
   }
 })
+
+// Mostrar/Ocultar contraseña en formulario del login
+const togglePassword = document.getElementById('togglePassword')
+const passwordInput = document.getElementById('password')
+
+togglePassword.addEventListener('click', function () {
+  const type = passwordInput.type === 'password' ? 'text' : 'password'
+  passwordInput.type = type
+
+  // Cambiar el icono
+  this.classList.toggle('fa-eye')
+  this.classList.toggle('fa-eye-slash')
+})
+
+// Mostrar/Ocultar contraseña en formulario de registro
+const toggleRegisterPassword = document.getElementById('toggleRegisterPassword')
+const registerPasswordInput = document.getElementById('registerPassword')
+
+if (toggleRegisterPassword && registerPasswordInput) {
+  toggleRegisterPassword.addEventListener('click', () => {
+    const type = registerPasswordInput.type === 'password' ? 'text' : 'password'
+    registerPasswordInput.type = type
+    toggleRegisterPassword.classList.toggle('fa-eye')
+    toggleRegisterPassword.classList.toggle('fa-eye-slash')
+  })
+}
+
+// Mostrar/Ocultar confirmar contraseña
+const toggleConfirmPassword = document.getElementById('toggleConfirmPassword')
+const confirmPasswordInput = document.getElementById('confirmPassword')
+
+if (toggleConfirmPassword && confirmPasswordInput) {
+  toggleConfirmPassword.addEventListener('click', () => {
+    const type = confirmPasswordInput.type === 'password' ? 'text' : 'password'
+    confirmPasswordInput.type = type
+    toggleConfirmPassword.classList.toggle('fa-eye')
+    toggleConfirmPassword.classList.toggle('fa-eye-slash')
+  })
+}

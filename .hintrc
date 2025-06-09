@@ -8,6 +8,18 @@
       {
         "document-title": "off"
       }
+    ],
+    "axe/forms": [
+      "default",
+      {
+        "label": "off"
+      }
+    ],
+    "axe/parsing": [
+      "default",
+      {
+        "duplicate-id-active": "off"
+      }
     ]
   }
 }

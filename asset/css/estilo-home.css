@@ -60,30 +60,60 @@ nav li {
     padding: 20px 0px 0px 50px;
   }
 
-.calendar{
+/* Estilo para el calendario */
+
+.calendar {
+        padding: 20px;
+        font-size: 16px;
+        border: 2px solid black;
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0px 30px;
+}
+.calendar label {
+       color: #333;
+        margin-bottom: 20px;
+}
+.calendar:hover {
+        border-color: #357ab8;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flatpickr-calendar {
+        border-radius: 10px !important;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
+    }
+
+.section-taks{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
     padding: 20px;
-    width: 300px;
-    margin: 0 auto;
+    }
+.task {
     border: 1px solid black;
-    text-align: center;
-}
-
-.task{
-  border: 1px solid black;
-  border-radius: 15px;
-  display: flex; /* Activa Flexbox */
-  justify-content: space-around; /* Distribuye las tareas uniformemente con espacio alrededor */
-  align-items: center; /* Centra verticalmente las tareas */
-  flex-wrap: wrap; /* Permite que las tareas se ajusten a varias líneas si no caben */
-  padding: 10px; /* Espacio interno */
-  height: 300px;
-    min-height: 200px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column; /* Cambia a columna para que las tareas se apilen verticalmente */
+    justify-content: flex-start; /* Las tareas empiezan arriba */
+    align-items: stretch; /* Los elementos ocupan todo el ancho */
+    flex-wrap: nowrap; /* No necesitamos wrap aquí */
+    padding: 20px;
+    min-height: 300px; /* Deja crecer el contenedor según las tareas */
     box-sizing: border-box;
-    margin: 20px 50px;
-    background-color: rgba(153, 76, 48, 0.365);/* Color de fondo al pasar el ratón */
+    margin: 0; /* Quitamos el margen para que no desajuste el layout */
+    background-color: rgba(153, 76, 48, 0.1); /* Un color más suave para mejor contraste */
 
-
+    /* Opcional para mejorar visual */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Fijamos un ancho para que no sea muy grande */
 }
+
 
 .titulo{
   width: 100%; /* Ancho completo para el título */

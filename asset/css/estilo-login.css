@@ -122,8 +122,6 @@ button:hover{
     /* Remove the class from the image element */
     width: 100px; /* Adjust the width as needed */
     height: auto;
-    
-    
 }
 img{
     width: 400px;
@@ -139,4 +137,26 @@ img{
     left: 30%;
     border-radius: 30px;
     margin-top: 10px;
+}
+
+.input-contenedor {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-contenedor input {
+    flex: 1;
+    padding-right: 40px; /* espacio para el icono */
+}
+
+.input-contenedor #togglePassword {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: brown;
+    font-size: 1.3rem;
+    z-index: 2;
 }

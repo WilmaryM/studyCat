@@ -7,10 +7,10 @@ dotenv.config()
 console.log('JWT_SECRET:', process.env.JWT_SECRET)
 
 export function login (req, res) {
-  const { email, password } = req.body
+  const { user_handle, password } = req.body
 
-  const query = 'SELECT * FROM users WHERE email_address = ?'
-  db.query(query, [email], async (err, results) => {
+  const query = 'SELECT * FROM users WHERE user_handle = ?'
+  db.query(query, [user_handle], async (err, results) => {
     if (err) return res.status(500).json({ error: 'Error en el servidor' })
     if (results.length === 0) return res.status(401).json({ error: 'Usuario no encontrado' })
 
@@ -20,7 +20,7 @@ export function login (req, res) {
     if (!match) return res.status(401).json({ error: 'Contraseña incorrecta' })
 
     const token = jwt.sign(
-      { id: user.user_id, email: user.email_address },
+      { id: user.user_id, user_handle: user.user_handle },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     )
@@ -40,7 +40,7 @@ export async function register (req, res) {
       user_handle,
       email_address,
       user_password,
-      firts_name,
+      first_name,
       last_name
     } = req.body
 
@@ -58,13 +58,13 @@ export async function register (req, res) {
 
       // Insertar nuevo usuario
       const insertQuery = `
-        INSERT INTO users (user_id, user_handle, email_address, user_password, firts_name, last_name)
+        INSERT INTO users (user_id, user_handle, email_address, user_password, first_name, last_name)
         VALUES (UUID_TO_BIN(UUID()), ?, ?, ?, ?, ?)
       `
       db.query(
         insertQuery,
         // eslint-disable-next-line camelcase
-        [user_handle, email_address, hashedPassword, firts_name, last_name],
+        [user_handle, email_address, hashedPassword, first_name, last_name],
         (err, result) => {
           if (err) {
             return res.status(500).json({ error: 'Error al registrar usuario' })

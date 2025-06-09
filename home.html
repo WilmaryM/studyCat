@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyCat</title>
     <link rel="stylesheet" href="asset/css/estilo-home.css">
+    <!-- flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 </head>
 <body>
 <div class="contenedor">
@@ -37,17 +40,33 @@
 <div class="nombre-user">
     <h1>Hola, <span id="nombre_usuario"></span></h1>
 </div>
+
 <script>
   const userHandle = localStorage.getItem('userHandle')
-  document.getElementById('nombre-usuario').textContent = userHandle || 'Usuario'
+document.getElementById('nombre_usuario').textContent = userHandle || 'Usuario'
 </script>
 
-<div class="calendar">
-<p>enero 15</p>
+<div class="calendar" name="calendar">
+        <label for="calendar" id="calendar" class=" flatpickr-calendar">Hoy es:</label>
 </div>
+    <!-- flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        // Activamos el calendario
+        flatpickr("#calendar", {
+            defaultDate: "today",
+            dateFormat: "d-m-y",
+            inline:true,
+            onChange: function(selectedDates, dateStr, instance) {
+                console.log("Fecha seleccionada:", dateStr);
+                // Aquí puedes hacer más cosas si quieres
+            }
+        });
+    </script>
 </section>
 
-<section>
+<section class="section-taks">
     <div class="task">
         <h2 class="titulo">Tareas de hoy</h2>
         <div class="tarea">
@@ -87,7 +106,7 @@
     </div>
 </section>
 
-</div>
+
 
 
 </body>
