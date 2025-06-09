@@ -1,15 +1,12 @@
-// routes/auth.js
 import { Router } from 'express'
-import { login } from '../controllers/user.js'
-import { verifyToken } from '../middlewares/auth.js'
-
+// Importamos la función login desde controllers/user.js
+import { login, register } from '../controllers/user.js'
 const router = Router()
 
+// Ruta para inicio de sesión
 router.post('/login', login)
 
-// Rutas protegidas
-router.get('/perfil', verifyToken, (req, res) => {
-  res.json({ message: `Hola, ${req.user.email}`, user: req.user })
-})
+// Ruta para registro
+router.post('/register', register)
 
 export default router

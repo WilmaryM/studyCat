@@ -35,8 +35,12 @@
 -->
 
 <div class="nombre-user">
-    <h1>Hola...</h1>
+    <h1>Hola, <span id="nombre_usuario"></span></h1>
 </div>
+<script>
+  const userHandle = localStorage.getItem('userHandle')
+  document.getElementById('nombre-usuario').textContent = userHandle || 'Usuario'
+</script>
 
 <div class="calendar">
 <p>enero 15</p>
