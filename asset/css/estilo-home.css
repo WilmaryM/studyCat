@@ -1,149 +1,309 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap');
 
-*{
+/* Reset and Global Styles */
+* {
     font-family: "Playwrite AU SA", cursive;
     margin: 0;
     padding: 0;
-  
+    box-sizing: border-box; /* IMPORTANT: Include padding and border in element's total width and height */
 }
 
-
-.icon{
-    color: brown;
-}
-.logo{
-    width: 5px;
-}
-.logo-img{
-  position: absolute;
-  width: 100px;
-}
-.header .titulo{
-  position: absolute;
-  right:30%;
-  top: 3%;
-  font-size: 30px;
-
-}
-nav ul {
-    list-style: none; /* Elimina las viñetas */
-    margin: 0;
-    padding: 20px;
-    background-color: rgba(229, 118, 77, 0.365);/* Color de fondo */
-    overflow: hidden; /* Evita desbordamientos */
-}
-
-nav li {
-    float: right; /* Coloca los elementos horizontalmente */
-  }
-  
-  nav li a {
-    display: block; /* Convierte los enlaces en bloques */
-    color: #333; /* Color del texto */
-    text-align: center; /* Alinea el texto al centro */
-    padding: 14px 16px; /* Espaciado interno */
-    text-decoration: none; /* Elimina el subrayado de los enlaces */
-  }
-  
-  nav li a:hover {
-    background-color: rgba(153, 76, 48, 0.365);/* Color de fondo al pasar el ratón */
-  }
-
-.contenedor{
+body {
     background-color: rgba(186, 115, 89, 0.365);
-  }
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
 
-  .nombre-user{
+/* --- Header Styling --- */
+.main-header {
+    background-color: rgba(229, 118, 77, 0.365); /* Matches your original nav background */
+    display: flex;
+    align-items: center; /* Vertically centers items */
+    justify-content: space-between; /* Pushes branding to left, nav to right */
+    padding: 10px 30px;
+    flex-wrap: wrap; /* Allows header items to wrap on smaller screens */
+    width: 100%; /* Ensures it takes full width */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+.header-branding {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between logo and title */
+}
+
+.logo-img {
+    width: 80px; /* Adjusted size from 100px and removed absolute positioning */
+    height: auto;
+    /* Remove position: absolute; if it was causing issues */
+    /* position: relative; if you need to position something else relative to it */
+}
+
+.main-title-text { /* Specific class for the main title */
+    font-size: 2.5vw; /* Responsive font size */
+    color: #333;
+    margin: 0;
+    white-space: nowrap; /* Prevent title from wrapping */
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox for navigation items */
+    gap: 20px; /* Space between nav items */
+}
+
+.main-nav li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 5px; /* Slightly rounded corners for hover effect */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.main-nav li a:hover {
+    background-color: rgba(153, 76, 48, 0.365);
+    color: #fff; /* Optional: change text color on hover */
+}
+
+.icon {
+    color: brown; /* Icon color */
+}
+
+/* --- Welcome Message --- */
+.welcome-message {
     color: brown;
     font-size: 20px;
     font-weight: bold;
-    padding: 20px 0px 0px 50px;
-  }
-
-/* Estilo para el calendario */
-
-.calendar {
-        padding: 20px;
-        font-size: 16px;
-        border: 2px solid black;
-        border-radius: 8px;
-        width: 300px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin: 0px 30px;
-}
-.calendar label {
-       color: #333;
-        margin-bottom: 20px;
-}
-.calendar:hover {
-        border-color: #357ab8;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px 0px 0px 50px; /* Your original padding */
+    margin-bottom: 10px; /* Reduced margin-bottom to bring tasks closer */
+    max-width: 1200px;
+    margin-left: auto; /* To center with content below */
+    margin-right: auto; /* To center with content below */
 }
 
-.flatpickr-calendar {
-        border-radius: 10px !important;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
-    }
-
-.section-taks{
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    gap: 40px;
-    flex-wrap: wrap;
-    padding: 20px;
-    }
-.task {
-    border: 1px solid black;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column; /* Cambia a columna para que las tareas se apilen verticalmente */
-    justify-content: flex-start; /* Las tareas empiezan arriba */
-    align-items: stretch; /* Los elementos ocupan todo el ancho */
-    flex-wrap: nowrap; /* No necesitamos wrap aquí */
-    padding: 20px;
-    min-height: 300px; /* Deja crecer el contenedor según las tareas */
+/* --- Calendar and Tasks Section --- */
+.calendar-tasks-section { /* Renamed from .section-taks for clarity */
+    display: flex; /* Makes direct children (calendar and tasks) flex items */
+    flex-wrap: wrap; /* Allows items to wrap onto the next line on smaller screens */
+    justify-content: center; /* Centers the items horizontally within this section */
+    gap: 40px; /* More space between calendar and tasks */
+    padding: 20px; /* Adjusted padding around the section */
+    max-width: 1200px; /* Matches the max-width of other main content sections */
+    margin: 15px auto 30px auto; /* Less vertical margin, more horizontal centering. Added bottom margin for articles */
     box-sizing: border-box;
-    margin: 0; /* Quitamos el margen para que no desajuste el layout */
-    background-color: rgba(153, 76, 48, 0.1); /* Un color más suave para mejor contraste */
-
-    /* Opcional para mejorar visual */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Fijamos un ancho para que no sea muy grande */
 }
 
-
-.titulo{
-  width: 100%; /* Ancho completo para el título */
-  text-align: center; /* Alineación centrada */
-  margin-bottom: 20px; /* Espacio entre el título y las tareas */
-}
-.tarea{
-  width: 200px; /* Ancho fijo para cada tarea (ajustar según necesidad) */
-  margin-bottom: 5px; /* Espacio entre las tareas (solo si se envuelven) */
-  box-sizing: border-box; /* Incluye el padding y el borde en el ancho y alto */
-  padding: 10px;
-}
-
-.articulos{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 10px;
-  height: 300px;
-  min-height: 200px;
-  box-sizing: border-box;
-  margin: 20px 50px;
-
+.calendar-box, .tasks-box { /* Apply styles to the new classes */
+    background-color: rgba(186, 115, 89, 0.365);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    min-height: 350px;
+    /* Crucial: Set flex basis/grow/shrink instead of fixed width: 100% */
+    flex: 1; /* Allow both to grow and shrink */
+    min-width: 300px; /* Minimum width before they wrap */
+    max-width: 500px; /* Optional: maximum width for individual boxes */
 }
 
-.articulo{
-  background-color: rgba(153, 76, 48, 0.365);/* Color de fondo al pasar el ratón */
-  width: 300px;
-  padding: 10px;
-  border-radius:15px;
+.calendar-box label { /* Specific for the calendar label */
+    color: #333;
+    margin-bottom: 20px;
+    display: block; /* Make label a block to take up its own line */
+}
 
+.calendar-box:hover {
+    border-color: #357ab8; /* This property might not be visible on a div without a border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+}
+
+.flatpickr-calendar { /* Flatpickr specific styling */
+    border-radius: 10px !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+.tasks-box {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.section-title { /* A generic class for section titles (Calendar, Tasks, Articles) */
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em; /* Adjusted size for consistency */
+    color: #333;
+}
+
+.task-item {
+    margin-bottom: 10px;
+    background-color: rgba(229, 118, 77, 0.3);
+    padding: 10px;
+    border-radius: 8px;
+}
+.task-item input {
+   flex: 1;
+   padding: 8px;
+   border-radius: 5px;
+   border: 1px solid #aaa;
+}
+
+.tarea input[type="text"] {
+  flex: 2;
+}
+
+.tarea input[type="date"],
+.tarea input[type="time"] {
+  flex: 1;
+}
+.borrar{
+  color: white;
+  flex: 0 0 auto;
+  background: #ff7878;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+#agregar{
+    background: #b8a15c;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+/* --- Articles Section --- */
+.articles-area { /* This class name is good */
+    padding: 40px; /* Uniform padding */
+    max-width: 1200px;
+    margin: 40px auto; /* Centered, with space from above */
+    box-sizing: border-box;
+    background-color: rgba(186, 115, 89, 0.365);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.article-grid { /* Renamed from .articulos for clarity (as it's a grid container) */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.article-item { /* Renamed from .articulo for clarity */
+    background-color: rgba(186, 115, 89, 0.365); /* Using the same background for articles */
+    border: 1px solid rgba(186, 115, 89, 0.5); /* Added a slight border */
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease-in-out;
+}
+
+.article-item:hover {
+    transform: translateY(-5px);
+}
+
+.article-title { /* Specific class for article titles */
+    color: #444;
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.article-item p {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.article-item a {
+    display: inline-block;
+    background-color: #a0c0e0;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.article-item a:hover {
+    background-color: #80a0c0;
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* Header responsiveness */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column; /* Stack header items vertically */
+        align-items: center;
+        padding: 10px;
+    }
+    .header-branding {
+        margin-bottom: 10px;
+    }
+    .main-title-text {
+        font-size: 6vw; /* Larger on small screens when stacked */
+        text-align: center;
+    }
+    .main-nav ul {
+        flex-direction: column; /* Stack nav items */
+        align-items: center;
+        width: 100%; /* Make nav links take full width */
+    }
+    .main-nav li {
+        width: 100%; /* Make each nav item take full width */
+        text-align: center;
+    }
+    .main-nav li a {
+        display: block; /* Make links block to fill width */
+        padding: 10px 0;
+    }
+}
+
+/* Calendar and Tasks responsiveness */
+@media (max-width: 768px) {
+    .calendar-tasks-section {
+        flex-direction: column; /* Stack calendar and tasks vertically */
+        align-items: center; /* Center them horizontally when stacked */
+        padding: 15px;
+    }
+    .calendar-box,
+    .tasks-box {
+        width: 90%; /* Take more width when stacked */
+        max-width: 400px; /* Limit their max width */
+    }
+    .welcome-message {
+        padding-left: 15px; /* Adjust padding for smaller screens */
+        padding-right: 15px;
+    }
+    .articles-area {
+        padding: 20px; /* Adjust articles padding */
+    }
+}
+
+/* General breakpoint for larger screens for calendar/tasks */
+@media (min-width: 769px) { /* Changed from 768px to 769px to ensure smooth transition */
+    .calendar-box, .tasks-box {
+        /* These values come from flex: 1; min-width: 300px; max-width: 500px; */
+        /* You generally don't need fixed percentages like width: 45% with flex: 1 and min/max widths */
+    }
 }

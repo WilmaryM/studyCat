@@ -7,7 +7,6 @@ dotenv.config()
 console.log('JWT_SECRET:', process.env.JWT_SECRET)
 
 const app = express()
-const PORT = process.env.PORT || 3000
 
 // Middleware
 app.use(cors())
@@ -17,6 +16,11 @@ app.use(express.json())
 app.use('/api/users', authRoutes)
 
 // Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`)
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`)
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.log(`El puerto ${port} ya está en uso`)
+  }
 })

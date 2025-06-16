@@ -6,108 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyCat</title>
     <link rel="stylesheet" href="asset/css/estilo-home.css">
-    <!-- flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
 </head>
 <body>
-<div class="contenedor">
 
-<section class="header">
+<div class="page-container">
 
-            <h2 class="titulo">El Compañero Purrfecto</h2>
-
-    <nav>
-        <div class="logo">
+    <header class="main-header">
+        <div class="header-branding">
             <img class="logo-img" src="asset/img/logo-2.png" alt="logo">
-        </div>
-        <ul>
-            <li><a href="3"><i class="fa-solid fa-calendar icon"></i>Calendario</a></li>
-            <li><a href="#"><i class="fa-solid fa-school icon"></i>cursos</a></li>
-            <li><a href="biblioteca.html"><i class="fa-solid fa-book icon"></i>Biblioteca</a></li>
-            <li><a href="https://www.google.com/"><i class="fa-solid fa-globe icon"></i>Chrome</a></li>
-        </ul>
-    </nav>
+            <h1 class="main-title-text">El Compañero Purrfecto</h1> </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="3"><i class="fa-solid fa-calendar icon"></i>Calendario</a></li>
+                <li><a href="#"><i class="fa-solid fa-school icon"></i>Cursos</a></li>
+                <li><a href="biblioteca.html"><i class="fa-solid fa-book icon"></i>Biblioteca</a></li>
+                <li><a href="https://www.google.com/"><i class="fa-solid fa-globe icon"></i>Chrome</a></li>
+            </ul>
+        </nav>
+    </header>
 
-
-    <!--Mensaje cuando el usuario inicie seccion-->
-<!--<div class="bienvebido">
-    <h1>Bienvenido a StudyCat</h1>
-    <p>La plataforma de estudio mas completa</p>
-</div>
--->
-
-<div class="nombre-user">
-    <h1>Hola, <span id="nombre_usuario"></span></h1>
-</div>
-
-<script>
-  const userHandle = localStorage.getItem('userHandle')
-document.getElementById('nombre_usuario').textContent = userHandle || 'Usuario'
-</script>
-
-<div class="calendar" name="calendar">
-        <label for="calendar" id="calendar" class=" flatpickr-calendar">Hoy es:</label>
-</div>
-    <!-- flatpickr JS -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <div class="welcome-message">
+        <h1>Hola, <span id="nombre_usuario"></span></h1>
+    </div>
 
     <script>
-        // Activamos el calendario
-        flatpickr("#calendar", {
-            defaultDate: "today",
-            dateFormat: "d-m-y",
-            inline:true,
-            onChange: function(selectedDates, dateStr, instance) {
-                console.log("Fecha seleccionada:", dateStr);
-                // Aquí puedes hacer más cosas si quieres
-            }
-        });
+        const userHandle = localStorage.getItem('userHandle')
+        document.getElementById('nombre_usuario').textContent = userHandle || 'Usuario'
     </script>
-</section>
 
-<section class="section-taks">
-    <div class="task">
-        <h2 class="titulo">Tareas de hoy</h2>
-        <div class="tarea">
-            <input type="checkbox" title="checkbox"><p>Matematicas</p>
-            <p>Fecha: 15/01/2022</p>
-            <p>Descripcion: Realizar la tarea de la pagina 15</p>
+    <section class="calendar-tasks-section">
+        <div class="calendar-box">
+                <label for="flatpickr-calendar" id="calendar-label" class="flatpickr-calendar">Hoy es:</label>
         </div>
-        <div class="tarea">
-            <input type="checkbox" title="checkbox"><p>Ingles</p>
-            <p>Fecha: 15/01/2022</p>
-            <p>Descripcion: Tener una conversacion con un extranjero</p>
-        </div>
-        <div class="tarea">
-            <input type="checkbox" title="checkbox"><p>Javascript</p>
-            <p>Fecha: 15/01/2022</p>
-            <p>Descripcion: trabajr con las clases</p>
-        </div>
-    </div>
 
-    <div class="articulos">
-        <h2 class="titulo">Articulos de interes</h2>
-        <div class="articulo">
-            <h3 class="titulo">Articulo 1</h3>
-            <p>Descripcion: Este es un articulo de interes</p>
-            <a href="#">Leer mas</a>
+        <div class="tasks-box">
+            <h2 class="section-title">Tareas de hoy</h2>
+            <div class="task-item" id="lista-tareas"></div>
+            <button type="button" id="agregar">
+                <i class="fa-solid fa-plus"></i>
+            </button>
         </div>
-        <div class="articulo">
-            <h3 class="titulo">Articulo 2</h3>
-            <p>Descripcion: Este es un articulo de interes</p>
-            <a href="#">Leer mas</a>
+    </section>
+
+    <section class="articles-area">
+        <h2 class="section-title">Articulos de interes</h2> <div class="article-grid"> <div class="article-item"> <h3 class="article-title">Articulo 1</h3> <p>Descripcion: Este es un articulo de interes</p>
+                <a href="#">Leer mas</a>
+            </div>
+            <div class="article-item">
+                <h3 class="article-title">Articulo 2</h3>
+                <p>Descripcion: Este es un articulo de interes</p>
+                <a href="#">Leer mas</a>
+            </div>
+            <div class="article-item">
+                <h3 class="article-title">Articulo 3</h3>
+                <p>Descripcion: Este es un articulo de interes</p>
+                <a href="#">Leer mas</a>
+            </div>
         </div>
-        <div class="articulo">
-            <h3 class="titulo">Articulo 3</h3>
-            <p>Descripcion: Este es un articulo de interes</p>
-            <a href="#">Leer mas</a>
-        </div>
-    </div>
-</section>
+    </section>
 
-
-
-
+</div>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    // Activamos el calendario
+    flatpickr("#calendar-label", { // Adjusted ID to match label
+        defaultDate: "today",
+        dateFormat: "d-m-y",
+        inline:true,
+        onChange: function(selectedDates, dateStr, instance) {
+            console.log("Fecha seleccionada:", dateStr);
+        }
+    });
+</script>
+<script  type="module" src="asset/js/home.js"></script>
 </body>
 </html>
