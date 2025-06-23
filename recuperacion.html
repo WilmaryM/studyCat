@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <link rel="stylesheet" href="asset/css/estilo-login.css">
+</head>
+<body>
+    <section class="contenedor">
+            <div class="formulario">
+                <form id="recover-form" autocomplete="off">
+                    <h2>Recuperar Contraseña</h2>
+
+                    <div class="input-contenedor">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Correo electrónico" required>
+                    </div>
+                    <button type="submit" id="btn_recover">Enviar enlace de recuperación</button>
+
+                    <div class="volver">
+                        <p>¿Recordaste tu contraseña? <a href="login.html">Inicia sesión</a></p>
+                </form>
+            </div>
+        </section>
+
+        <script>
+            const recoverForm = document.getElementById('recover-form')
+
+                recoverForm.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Evita el envío del formulario
+
+                const email = recoverForm.email.value.trim()
+
+                if(email){
+                    alert('si encontramos tu correo, te enviaremos un enlace de recuperación')
+                recoverForm.reset() // Limpia el formulario
+                } else {
+                    alert('Por favor, ingresa un correo electrónico válido.')
+                }
+            })
+
+        </script>
+</body>
+</html>

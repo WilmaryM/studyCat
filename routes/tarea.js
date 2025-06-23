@@ -1,8 +1,12 @@
 import express from 'express'
-import { getTareas } from '../controllers/tarea.js'
+import { getTareas, crearTarea } from '../controllers/tarea.js'
 
 const router = express.Router()
 
+// GET
 router.get('/', getTareas)
+
+// POST
+router.post('/', crearTarea)
 
 export default router
