@@ -1,4 +1,5 @@
 import authRoutes from './routes/user.js' // Asegúrate de que la ruta sea correcta
+import Tareas from './routes/tarea.js' // Asegúrate de que la ruta sea correcta
 import cors from 'cors'
 import express from 'express'
 import dotenv from 'dotenv'
@@ -14,6 +15,7 @@ app.use(express.json())
 
 // Usar rutas
 app.use('/api/users', authRoutes)
+app.use('/api/tareas', Tareas)
 
 // Iniciar servidor
 const port = process.env.PORT || 3000
