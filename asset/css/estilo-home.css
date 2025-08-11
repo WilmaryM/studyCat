@@ -98,7 +98,7 @@ body {
     gap: 40px; /* More space between calendar and tasks */
     padding: 20px; /* Adjusted padding around the section */
     max-width: 1200px; /* Matches the max-width of other main content sections */
-    margin: 15px auto 30px auto; /* Less vertical margin, more horizontal centering. Added bottom margin for articles */
+    margin: 30px auto 30px auto; /* Less vertical margin, more horizontal centering. Added bottom margin for articles */
     box-sizing: border-box;
 }
 

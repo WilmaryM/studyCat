@@ -1,11 +1,12 @@
 /* eslint-disable no-undef */
-const form = document.getElementById('login-form')
+const loginForm = document.getElementById('login-form')
+const registerForm = document.getElementById('register-form')
 
-form.addEventListener('submit', async (e) => {
+// Lógica para el formulario de LOGIN
+loginForm.addEventListener('submit', async (e) => {
   e.preventDefault()
-
-  const userHandle = form.user_handle.value
-  const password = form.password.value
+  const userHandle = loginForm.user_handle.value
+  const password = loginForm.password.value
 
   try {
     const res = await fetch('http://localhost:3000/api/users/login', {
@@ -14,21 +15,16 @@ form.addEventListener('submit', async (e) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ user_handle: userHandle, password })
-
     })
 
     const data = await res.json()
 
     if (res.ok) {
-      alert('Registro exitoso')
+      alert('Inicio de sesión exitoso')
       console.log(data)
-
-      localStorage.removeItem('userHandle')
-
-      // Guardar el userHandle en localStorage para mostrarlo en home.html
-      localStorage.setItem('userHandle', data.user)
-
-      // Redirigir al home
+      localStorage.setItem('token', data.token)
+      // ➡️ Aquí se guarda el nombre que viene del backend
+      localStorage.setItem('userName', data.user.user_handle)
       window.location.href = 'home.html'
     } else {
       alert(data.error || 'Error al iniciar sesión')
@@ -39,11 +35,9 @@ form.addEventListener('submit', async (e) => {
   }
 })
 
-const registerForm = document.getElementById('register-form')
-
+// Lógica para el formulario de REGISTRO
 registerForm.addEventListener('submit', async (e) => {
   e.preventDefault()
-
   const nombre = registerForm.nombre.value
   const apellido = registerForm.apellido.value
   const email = registerForm.email.value
@@ -52,7 +46,6 @@ registerForm.addEventListener('submit', async (e) => {
   const confirmarPassword = registerForm.confirmar_password.value
 
   if (password !== confirmarPassword) {
-    // eslint-disable-next-line no-undef
     alert('Las contraseñas no coinciden')
     return
   }
@@ -75,12 +68,10 @@ registerForm.addEventListener('submit', async (e) => {
     const data = await res.json()
 
     if (res.ok) {
-      // eslint-disable-next-line no-undef
       alert('Registro exitoso')
       console.log(data)
-      localStorage.removeItem('userHandle')
-      localStorage.setItem('userHandle', data.user)
-      // Redirigir al usuario a la página de inicio después del registro exitoso
+      // ➡️ Aquí se guarda el nombre que el backend devuelve
+      localStorage.setItem('userName', data.user.user_handle)
       window.location.href = 'home.html'
     } else {
       alert(data.error || 'Error al registrarse')
@@ -91,6 +82,7 @@ registerForm.addEventListener('submit', async (e) => {
   }
 })
 
+// ... (El resto de tu código para mostrar/ocultar contraseñas) ...
 // Mostrar/Ocultar contraseña en formulario del login
 const togglePassword = document.getElementById('togglePassword')
 const passwordInput = document.getElementById('password')

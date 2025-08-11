@@ -1,23 +1,35 @@
 /* eslint-disable camelcase */
-import db from '../js/db.js' // asegúrate que este archivo existe
+import { supabase } from '../modole/supabase/supabase.js' // ⬅️ Asegúrate de que la ruta sea correcta
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config()
-console.log('JWT_SECRET:', process.env.JWT_SECRET)
 
-export function login (req, res) {
+export async function login (req, res) {
   const { user_handle, password } = req.body
 
-  const query = 'SELECT * FROM users WHERE user_handle = ?'
-  db.query(query, [user_handle], async (err, results) => {
-    if (err) return res.status(500).json({ error: 'Error en el servidor' })
-    if (results.length === 0) return res.status(401).json({ error: 'Usuario no encontrado' })
+  try {
+    // Buscar al usuario por user_handle
+    const { data: results, error } = await supabase
+      .from('user') // ⬅️ Nombre de la tabla según tu esquema
+      .select('*')
+      .eq('user_handle', user_handle)
+
+    if (error) {
+      console.error('Error de Supabase:', error)
+      return res.status(500).json({ error: 'Error en el servidor' })
+    }
+
+    if (!results || results.length === 0) {
+      return res.status(401).json({ error: 'Usuario no encontrado' })
+    }
 
     const user = results[0]
     const match = await bcrypt.compare(password, user.user_password)
 
-    if (!match) return res.status(401).json({ error: 'Contraseña incorrecta' })
+    if (!match) {
+      return res.status(401).json({ error: 'Contraseña incorrecta' })
+    }
 
     const token = jwt.sign(
       { id: user.user_id, user_handle: user.user_handle },
@@ -30,13 +42,15 @@ export function login (req, res) {
       token,
       user: user.user_handle
     })
-  })
+  } catch (error) {
+    console.error('Error general:', error)
+    res.status(500).json({ error: 'Error interno del servidor' })
+  }
 }
 
 export async function register (req, res) {
   try {
     const {
-      // eslint-disable-next-line camelcase
       user_handle,
       email_address,
       user_password,
@@ -44,38 +58,45 @@ export async function register (req, res) {
       last_name
     } = req.body
 
-    // Verifica si ya existe el email o el user_handle
-    const checkQuery = 'SELECT * FROM users WHERE email_address = ? OR user_handle = ?'
-    // eslint-disable-next-line camelcase
-    db.query(checkQuery, [email_address, user_handle], async (err, results) => {
-      if (err) return res.status(500).json({ error: 'Error del servidor' })
-      if (results.length > 0) {
-        return res.status(400).json({ error: 'Usuario o correo ya registrado' })
-      }
+    // Verificar si ya existe el usuario o el correo
+    const { data: existingUser, error: checkError } = await supabase
+      .from('user')
+      .select('user_handle, email_address')
+      .or(`user_handle.eq.${user_handle},email_address.eq.${email_address}`)
 
-      // Encriptar contraseña
-      const hashedPassword = await bcrypt.hash(user_password, 10)
+    if (checkError) {
+      console.error('Error de Supabase al verificar usuario:', checkError)
+      return res.status(500).json({ error: 'Error del servidor' })
+    }
 
-      // Insertar nuevo usuario
-      const insertQuery = `
-        INSERT INTO users (user_id, user_handle, email_address, user_password, first_name, last_name)
-        VALUES (UUID_TO_BIN(UUID()), ?, ?, ?, ?, ?)
-      `
-      db.query(
-        insertQuery,
-        // eslint-disable-next-line camelcase
-        [user_handle, email_address, hashedPassword, first_name, last_name],
-        (err, result) => {
-          if (err) {
-            return res.status(500).json({ error: 'Error al registrar usuario' })
-          }
+    if (existingUser.length > 0) {
+      return res.status(400).json({ error: 'Usuario o correo ya registrado' })
+    }
 
-          res.status(201).json({ message: 'Usuario registrado con éxito' })
-        }
-      )
-    })
+    // Encriptar contraseña
+    const hashedPassword = await bcrypt.hash(user_password, 10)
+
+    // Insertar nuevo usuario
+    const newUser = {
+      user_handle,
+      email_address,
+      user_password: hashedPassword,
+      first_name,
+      last_name
+    }
+
+    const { error: insertError } = await supabase
+      .from('user')
+      .insert(newUser)
+
+    if (insertError) {
+      console.error('Error de Supabase al registrar usuario:', insertError)
+      return res.status(500).json({ error: 'Error al registrar usuario' })
+    }
+
+    res.status(201).json({ message: 'Usuario registrado con éxito' })
   } catch (error) {
-    console.error(error)
+    console.error('Error general:', error)
     res.status(500).json({ error: 'Error interno del servidor' })
   }
 }
