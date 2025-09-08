@@ -70,8 +70,8 @@ registerForm.addEventListener('submit', async (e) => {
     if (res.ok) {
       alert('Registro exitoso')
       console.log(data)
-      // ➡️ Aquí se guarda el nombre que el backend devuelve
-      localStorage.setItem('userName', data.user.user_handle)
+      // Usa el user_handle del formulario como fallback
+      localStorage.setItem('userName', user)
       window.location.href = 'home.html'
     } else {
       alert(data.error || 'Error al registrarse')

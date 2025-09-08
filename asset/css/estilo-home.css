@@ -299,11 +299,3 @@ body {
         padding: 20px; /* Adjust articles padding */
     }
 }
-
-/* General breakpoint for larger screens for calendar/tasks */
-@media (min-width: 769px) { /* Changed from 768px to 769px to ensure smooth transition */
-    .calendar-box, .tasks-box {
-        /* These values come from flex: 1; min-width: 300px; max-width: 500px; */
-        /* You generally don't need fixed percentages like width: 45% with flex: 1 and min/max widths */
-    }
-}
