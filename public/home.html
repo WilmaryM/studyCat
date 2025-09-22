@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+      content="
+        default-src 'none';
+        style-src 'self' https://fonts.googleapis.com https://gstatic.com 'unsafe-inline';
+        script-src 'self' https://kit.fontawesome.com https://cdn.jsdelivr.net/npm/flatpickr 'unsafe-inline';
+        font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com;
+        connect-src 'self' http://localhost:3000 https://ka-f.fontawesome.com;
+        img-src 'self' data:;
+    ">
+    <title>StudyCat</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="/asset/css/estilo-home.css">
+    <link rel="stylesheet" href="/asset/css/flatpickr.css">
+    <link rel="stylesheet" href="/asset/css/all.min.css">
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/c00593a25a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+
+<div class="page-container">
+
+    <header class="main-header">
+        <div class="header-branding">
+            <img class="logo-img" src="asset/img/logo-2.png" alt="logo">
+            <h1 class="main-title-text">El Compañero Purrfecto</h1>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="cursos.html"><i class="fa-solid fa-school icon"></i>Cursos</a></li>
+                <li><a href="biblioteca.html"><i class="fa-solid fa-book icon"></i>Biblioteca</a></li>
+                <li><a href="https://www.google.com/"><i class="fa-solid fa-globe icon"></i>Chrome</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="welcome-message">
+        <h1>Hola, <span id="nombre_usuario"></span></h1>
+    </div>
+
+    <section class="calendar-tasks-section">
+        <div class="calendar-box">
+            <label for="flatpickr-calendar" id="calendar-label" class="flatpickr-calendar">Hoy es:</label>
+        </div>
+
+        <div class="tasks-box">
+            <h2 class="section-title">Tareas de hoy</h2>
+            <div class="task-item" id="lista-tareas"></div>
+            <button type="button" id="agregar">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="articles-area">
+        <h2 class="section-title">Artículos de interés</h2>
+        <div class="article-grid">
+            <div class="article-item">
+                <h3 class="article-title">Artículo 1</h3>
+                <p>Descripción: Este es un artículo de interés</p>
+                <a href="#">Leer más</a>
+            </div>
+            <div class="article-item">
+                <h3 class="article-title">Artículo 2</h3>
+                <p>Descripción: Este es un artículo de interés</p>
+                <a href="#">Leer más</a>
+            </div>
+            <div class="article-item">
+                <h3 class="article-title">Artículo 3</h3>
+                <p>Descripción: Este es un artículo de interés</p>
+                <a href="#">Leer más</a>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- Script principal -->
+<script>
+    // Mostrar nombre de usuario
+    const userHandle = localStorage.getItem('userHandle')
+    document.getElementById('nombre_usuario').textContent = userHandle || 'Usuario'
+
+    // Inicializar Flatpickr
+    flatpickr("#calendar-label", {
+        defaultDate: "today",
+        dateFormat: "d-m-Y",
+        inline: true,
+        onChange: function(selectedDates, dateStr) {
+            console.log("Fecha seleccionada:", dateStr);
+        }
+    });
+</script>
+<script src="asset/js/home.js"></script>
+
+</body>
+</html>

@@ -1,12 +1,14 @@
-import authRoutes from './routes/user.js'
-import Tareas from './routes/tarea.js'
-import Curso from './routes/curso.js'
-import session from 'express-session'
-import { corsMiddleware } from './middlewares/cors.js'
 import express from 'express'
+import session from 'express-session'
 import dotenv from 'dotenv'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import helmet from 'helmet'
+
+import authRoutes from './public/routes/user.js'
+import Tareas from './public/routes/tarea.js'
+import Curso from './public/routes/curso.js'
+import { corsMiddleware } from './public/middlewares/cors.js'
 
 dotenv.config()
 
@@ -19,6 +21,34 @@ const __dirname = path.dirname(__filename)
 // Middleware CORS
 app.use(corsMiddleware())
 
+// Helmet + CSP final
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", 'https://kit.fontawesome.com'],
+        scriptSrcElem: ["'self'", 'https://cdn.jsdelivr.net/npm/flatpickr', 'https://kit.fontawesome.com'],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://fonts.googleapis.com',
+          'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
+          'https://ka-f.fontawesome.com'
+        ],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:', 'https://ka-f.fontawesome.com'],
+        connectSrc: [
+          "'self'",
+          'http://localhost:3000',
+          'https://ka-f.fontawesome.com'
+        ],
+        imgSrc: ["'self'", 'data:']
+      }
+    }
+  })
+)
+
 // Middleware para analizar JSON
 app.use(express.json())
 
@@ -28,20 +58,18 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // true solo si usas HTTPS
+    secure: false, // true si usas HTTPS en producción
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 // 1 día
   }
 }))
 
-// 👉 Servir archivos estáticos (CSS, imágenes, JS)
-// Si tus assets están en "asset", cámbialo
+// Servir archivos estáticos desde "public"
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(express.static(path.join(__dirname, 'asset')))
-
-// 👉 Ruta principal para servir login.html
+// Ruta principal: abre login.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'login.html'))
+  res.sendFile(path.join(__dirname, 'public', 'login.html'))
 })
 
 // Rutas API
@@ -55,6 +83,6 @@ app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`)
 }).on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
-    console.log(`El puerto  ${port} ya está en uso`)
+    console.log(`El puerto ${port} ya está en uso`)
   }
 })
