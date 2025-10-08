@@ -14,7 +14,7 @@ section {
     align-items: center;
     width: 100%;
     min-height: 100vh;
-    background-color: rgba(186, 115, 89, 0.365);
+    background-color:#F9FAFB;
 }
 
 .contenedor {
@@ -32,7 +32,7 @@ section {
     position: relative;
     margin: 10px 0  ;
     width: 300px;
-    border-bottom: 2px solid brown;
+    border-bottom: 2px solid #2563EB;
 }
 .input-contenedor label{
     position: absolute;
@@ -61,13 +61,13 @@ input:valid ~ label{
 }
 .input-contenedor i{
     position: absolute;
-    color: brown;
+    color:#60A5FA;
     font-size: 1.6rem;
     top: 19px;
     right: 8px;
 }
 .recordar label{
-    color: black;
+    color:#6B7280;
     text-decoration: none;
     transition: .3s;
     font-size: .9em;
@@ -82,7 +82,7 @@ input:valid ~ label{
     margin: 3px;
 }
 .olvidar a{
-    color: black;
+    color: #6B7280;
     text-decoration: none;
     transition: .3s;
     font-size: .9em;
@@ -94,7 +94,7 @@ button{
     width: 100%;
     height: 45px;
     border-radius: 40px;
-    background-color: brown;
+    background-color:#2563EB;
     color: wheat;
     border: none;
     cursor: pointer;
@@ -113,7 +113,7 @@ button:hover{
     text-decoration:  none;
     font-weight: bold;
     transition:.3s ;
-    color: brown;
+    color: #60A5FA;
 }
 .registrar p a:hover{
     text-decoration: underline;
@@ -156,7 +156,7 @@ img{
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: brown;
+    color: #60A5FA;
     font-size: 1.3rem;
     z-index: 2;
 }

@@ -1,9 +1,9 @@
 body{
-    background-color:rgba(186, 115, 89, 0.365);
+    background-color:#F9FAFB;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: #333;
+    color:#1F2937;
 }
 
 .intro{
@@ -12,7 +12,7 @@ body{
     justify-content: space-around;
     gap: 50px;
     padding: 50px 10%;
-    background: rgba(238, 123, 81, 0.365);
+
 }
 .hero-text {
   max-width: 50%;
@@ -34,13 +34,13 @@ line-height: 1.3;
 .intro p{
     font-size: 1.1rem;
     margin-bottom: 30px;
-    color: #555;
+    color:#6B7280;
     line-height: 1.6;
 }
 
 .intro .a{
     display: flex;
-    background: rgba(226, 108, 65, 0.365);
+    background: #2563EB;
     color: white;
     padding: 10px;
     border-radius: 8px;
@@ -64,17 +64,66 @@ max-width: 450px;
     justify-content: center;
     gap: 20px;
     padding: 40px 10%;
-    background: rgba(216, 154, 131, 0.365);
-;
+    
+}
+.feature i {
+    font-size: 28px;
+    color: #60A5FA;
+    margin-bottom: 10px;
 }
 
 .feature {
-    background: rgba(226, 108, 65, 0.365);
-;
+    background:#ddd7d3;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
     font-weight: bold;
     text-align: center;
     flex: 1;
+}
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 60px;
+    padding: 20px;
+    border-radius: 15px;
+}
+.tarjeta-titulo {
+  font-size: 2rem; /* tamaño adaptable */
+  font-weight: bold;
+  color:#1F2937;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.tarjeta-titulo + p {
+  text-align: center;
+  color:#6B7280;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+.tarjeta {
+    background-color: #f6d5c2;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tarjeta h3 {
+    color:#1F2937;
+    margin-bottom: 10px;
+}
+
+.tarjeta p {
+    color:#494d55;
+    font-size: 0.95rem;
+    line-height: 1.4;
 }

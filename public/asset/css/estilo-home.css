@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: rgba(186, 115, 89, 0.365);
+    background-color:#F9FAFB;
     font-family: 'Arial', sans-serif;
     margin: 0;
     display: flex;
@@ -20,7 +20,7 @@ body {
 
 /* --- Header Styling --- */
 .main-header {
-    background-color: rgba(229, 118, 77, 0.365); /* Matches your original nav background */
+    background-color:#ddd7d3; /* Matches your original nav background */
     display: flex;
     align-items: center; /* Vertically centers items */
     justify-content: space-between; /* Pushes branding to left, nav to right */
@@ -45,7 +45,7 @@ body {
 
 .main-title-text { /* Specific class for the main title */
     font-size: 2.5vw; /* Responsive font size */
-    color: #333;
+    color: #1F2937;
     margin: 0;
     white-space: nowrap; /* Prevent title from wrapping */
 }
@@ -63,24 +63,24 @@ body {
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    color: #333;
+    color:#6B7280;
     padding: 8px 12px;
     border-radius: 5px; /* Slightly rounded corners for hover effect */
     transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 .main-nav li a:hover {
-    background-color: rgba(153, 76, 48, 0.365);
+    background-color:  #f6d5c2;
     color: #fff; /* Optional: change text color on hover */
 }
 
 .icon {
-    color: brown; /* Icon color */
+    color: #60A5FA; /* Icon color */
 }
 
 /* --- Welcome Message --- */
 .welcome-message {
-    color: brown;
+    color:#6B7280;
     font-size: 20px;
     font-weight: bold;
     padding: 20px 0px 0px 50px; /* Your original padding */
@@ -103,7 +103,7 @@ body {
 }
 
 .calendar-box, .tasks-box { /* Apply styles to the new classes */
-    background-color: rgba(186, 115, 89, 0.365);
+    background-color: #f6d5c2;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -115,7 +115,7 @@ body {
 }
 
 .calendar-box label { /* Specific for the calendar label */
-    color: #333;
+    color:#1F2937;
     margin-bottom: 20px;
     display: block; /* Make label a block to take up its own line */
 }
@@ -143,12 +143,12 @@ body {
     text-align: center;
     margin-bottom: 20px;
     font-size: 2em; /* Adjusted size for consistency */
-    color: #333;
+    color:#1F2937;
 }
 
 .task-item {
     margin-bottom: 10px;
-    background-color: rgba(229, 118, 77, 0.3);
+    background-color:  #f6d5c2;
     padding: 10px;
     border-radius: 8px;
 }
@@ -170,7 +170,7 @@ body {
 .borrar{
   color: white;
   flex: 0 0 auto;
-  background: #ff7878;
+  background: #2563EB;
   color: white;
   border: none;
   border-radius: 8px;
@@ -178,7 +178,7 @@ body {
   cursor: pointer;
 }
 #agregar{
-    background: #b8a15c;
+    background: #2563EB;
     color: white;
     border: none;
     width: 100%;
@@ -194,7 +194,7 @@ body {
     max-width: 1200px;
     margin: 40px auto; /* Centered, with space from above */
     box-sizing: border-box;
-    background-color: rgba(186, 115, 89, 0.365);
+    background-color: #f6d5c2;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
@@ -206,8 +206,8 @@ body {
 }
 
 .article-item { /* Renamed from .articulo for clarity */
-    background-color: rgba(186, 115, 89, 0.365); /* Using the same background for articles */
-    border: 1px solid rgba(186, 115, 89, 0.5); /* Added a slight border */
+    background-color: #f6d5c2; /* Using the same background for articles */
+    border: 1px solid #dcbead; /* Added a slight border */
     border-radius: 8px;
     padding: 20px;
     text-align: center;
@@ -220,14 +220,14 @@ body {
 }
 
 .article-title { /* Specific class for article titles */
-    color: #444;
+    color:#1F2937;
     font-size: 1.3em;
     margin-top: 0;
     margin-bottom: 10px;
 }
 
 .article-item p {
-    color: #666;
+    color:#6B7280;
     font-size: 0.95em;
     line-height: 1.5;
     margin-bottom: 15px;
@@ -235,7 +235,7 @@ body {
 
 .article-item a {
     display: inline-block;
-    background-color: #a0c0e0;
+    background-color:#2563EB;
     color: white;
     padding: 8px 15px;
     border-radius: 5px;
@@ -245,7 +245,7 @@ body {
 }
 
 .article-item a:hover {
-    background-color: #80a0c0;
+    background-color: #60A5FA;
 }
 
 /* --- Media Queries for Responsiveness --- */

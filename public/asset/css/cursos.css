@@ -1,14 +1,14 @@
  body {
       font-family: Arial, sans-serif;
-      background-color: rgba(186, 115, 89, 0.365);
+      background-color: #F9FAFB;
       margin: 0;
       padding: 0;
      
     }
 
     header {
-      background-color:rgba(186, 115, 89, 0.365);
-      color: #333;
+      background-color:#F9FAFB;
+      color:#1F2937;
       padding: 1rem;
       text-align: center;
     }
@@ -20,7 +20,7 @@
     .titulo-seccion {
       margin-bottom: 1rem;
       font-size: 1.5rem;
-      color: #333;
+      color:#1F2937;
     }
 
     .contenedor-cursos {
@@ -38,7 +38,7 @@
     }
 
     .boton-agregar {
-      background-color: #4CAF50;
+      background-color:#2563EB;
       color: white;
       padding: 0.6rem 1rem;
       border: none;
@@ -48,5 +48,5 @@
     }
 
     .boton-agregar:hover {
-      background-color: #45a049;
+      background-color: #60A5FA;
     }

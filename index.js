@@ -21,23 +21,38 @@ const __dirname = path.dirname(__filename)
 // Middleware CORS
 app.use(corsMiddleware())
 
-// Helmet + CSP final
+// Helmet + CSP actualizado
 app.use(
   helmet({
     contentSecurityPolicy: {
       useDefaults: true,
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", 'https://kit.fontawesome.com'],
-        scriptSrcElem: ["'self'", 'https://cdn.jsdelivr.net/npm/flatpickr', 'https://kit.fontawesome.com'],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://kit.fontawesome.com'
+        ],
+        scriptSrcElem: [
+          "'self'",
+          'https://cdn.jsdelivr.net/npm/flatpickr',
+          'https://kit.fontawesome.com'
+        ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'",
           'https://fonts.googleapis.com',
           'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
-          'https://ka-f.fontawesome.com'
+          'https://ka-f.fontawesome.com',
+          'https://cdnjs.cloudflare.com' // 👈 añadido aquí
         ],
-        fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:', 'https://ka-f.fontawesome.com'],
+        fontSrc: [
+          "'self'",
+          'https://fonts.gstatic.com',
+          'data:',
+          'https://ka-f.fontawesome.com',
+          'https://cdnjs.cloudflare.com' // 👈 añadido aquí
+        ],
         connectSrc: [
           "'self'",
           'http://localhost:3000',
@@ -69,7 +84,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Ruta principal: abre login.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'))
+  res.sendFile(path.join(__dirname, 'public', 'intro.html'))
 })
 
 // Rutas API
