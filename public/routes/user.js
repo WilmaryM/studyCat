@@ -1,12 +1,11 @@
 import { Router } from 'express'
-// Importamos la función login desde controllers/user.js
-import { login, register } from '../../public/controllers/user.js'
+import { registerUser, loginUser } from '../../public/controllers/user.js'
 const router = Router()
 
 // Ruta para inicio de sesión
-router.post('/login', login)
+router.post('/login', loginUser)
 
 // Ruta para registro
-router.post('/register', register)
+router.post('/register', registerUser)
 
 export default router

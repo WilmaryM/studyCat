@@ -20,7 +20,7 @@ body {
 
 /* --- Header Styling --- */
 .main-header {
-    background-color:#ddd7d3; /* Matches your original nav background */
+    background-color:#f6d5c2; /* Matches your original nav background */
     display: flex;
     align-items: center; /* Vertically centers items */
     justify-content: space-between; /* Pushes branding to left, nav to right */
@@ -194,9 +194,8 @@ body {
     max-width: 1200px;
     margin: 40px auto; /* Centered, with space from above */
     box-sizing: border-box;
-    background-color: #f6d5c2;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 32%);
 }
 
 .article-grid { /* Renamed from .articulos for clarity (as it's a grid container) */
@@ -206,12 +205,12 @@ body {
 }
 
 .article-item { /* Renamed from .articulo for clarity */
-    background-color: #f6d5c2; /* Using the same background for articles */
+    background-color:#f6d5c2; /* Using the same background for articles */
     border: 1px solid #dcbead; /* Added a slight border */
     border-radius: 8px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(12, 12, 12, 0.08);
     transition: transform 0.2s ease-in-out;
 }
 

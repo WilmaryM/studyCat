@@ -2,108 +2,119 @@
 import { supabase } from '../../public/supabase/supabase.js' // ⬅️ Asegúrate de que la ruta sea correcta
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import sendEmail from '../js/mail.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
-export async function login (req, res) {
-  const { user_handle, password } = req.body
-
+// Controlador para manejar el inicio de sesión
+export const loginUser = async (req, res) => {
   try {
-    // Buscar al usuario por user_handle
-    const { data: results, error } = await supabase
-      .from('user') // ⬅️ Nombre de la tabla según tu esquema
+    const { user_handle, password } = req.body
+
+    // ✅ Validación básica
+    if (!user_handle || !password) {
+      return res.status(400).json({ message: 'Faltan campos obligatorios' })
+    }
+
+    // ✅ Buscar usuario en Supabase
+    const { data: user, error } = await supabase
+      .from('user')
       .select('*')
       .eq('user_handle', user_handle)
+      .single()
 
-    if (error) {
-      console.error('Error de Supabase:', error)
-      return res.status(500).json({ error: 'Error en el servidor' })
+    if (error || !user) {
+      return res.status(401).json({ message: 'Usuario no encontrado' })
     }
 
-    if (!results || results.length === 0) {
-      return res.status(401).json({ error: 'Usuario no encontrado' })
-    }
+    // Comparar contraseña
+    const isMatch = await bcrypt.compare(password, user.user_password)
+    if (!isMatch) return res.status(401).json({ message: 'Contraseña incorrecta' })
 
-    const user = results[0]
-    const match = await bcrypt.compare(password, user.user_password)
-
-    if (!match) {
-      return res.status(401).json({ error: 'Contraseña incorrecta' })
-    }
-
+    // ✅ Generar JWT
     const token = jwt.sign(
-      { id: user.user_id, user_handle: user.user_handle },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
+      { id: user.id, user_handle: user.user_handle }, // datos que quieres guardar
+      process.env.JWT_SECRET, // clave secreta en .env
+      // eslint-disable-next-line no-multi-spaces
+      { expiresIn: '1h' }                            // expiración del token
     )
 
-    res.json({
+    // Guardar sesión (opcional, puedes usar solo JWT)
+    req.session.user = {
+      id: user.id,
+      user_handle: user.user_handle,
+      email_address: user.email_address
+    }
+
+    // Enviar correo
+    await sendEmail(user.email_address, user.user_handle)
+
+    // Respuesta al frontend
+    res.status(200).json({
       message: 'Inicio de sesión exitoso',
-      token,
-      user: user.user_handle
+      user: req.session.user,
+      token// 🔹 enviamos el JWT
     })
-  } catch (error) {
-    console.error('Error general:', error)
-    res.status(500).json({ error: 'Error interno del servidor' })
+  } catch (err) {
+    console.error('❌ Error en loginUser:', err)
+    res.status(500).json({ message: 'Error interno del servidor', error: err.message })
   }
 }
 
-export async function register (req, res) {
+// Controlador para manejar el registro de usuarios
+export const registerUser = async (req, res) => {
+  console.log('Datos recibidos:', req.body)
   try {
-    const {
-      user_handle,
-      email_address,
-      user_password,
-      first_name,
-      last_name
-    } = req.body
+    const { first_name, last_name, user_handle, email_address, user_password, confirmar_Password } = req.body
 
-    // Verificar si ya existe el usuario o el correo
-    const { data: existingUser, error: checkError } = await supabase
+    // ✅ Validaciones básicas
+    if (!first_name || !last_name || !user_handle || !email_address || !user_password || !confirmar_Password) {
+      return res.status(400).json({ message: 'Faltan campos obligatorios' })
+    }
+
+    if (user_password !== confirmar_Password) {
+      return res.status(400).json({ message: 'Las contraseñas no coinciden' })
+    }
+
+    // ✅ Revisar si el usuario ya existe
+    const { data: existingUser } = await supabase
       .from('user')
-      .select('user_handle, email_address')
-      .or(`user_handle.eq.${user_handle},email_address.eq.${email_address}`)
-      .limit(1) // ⬅️ Opcional: optimización para que la consulta sea más rápida
+      .select('*')
+      .eq('user_handle', user_handle)
+      .single()
 
-    if (checkError) {
-      console.error('Error de Supabase al verificar usuario:', checkError)
-      return res.status(500).json({ error: 'Error del servidor' })
+    if (existingUser) {
+      return res.status(400).json({ message: 'El usuario ya existe' })
     }
 
-    if (existingUser.length > 0) {
-      const isHandleMatch = existingUser[0].user_handle === user_handle
-      const isEmailMatch = existingUser[0].email_address === email_address
-      if (isHandleMatch) {
-        return res.status(400).json({ error: 'El nombre de usuario ya está registrado' })
-      }
-      if (isEmailMatch) {
-        return res.status(400).json({ error: 'El correo electrónico ya está registrado' })
-      }
-    }
-    // Encriptar contraseña
+    // ✅ Hashear la contraseña
     const hashedPassword = await bcrypt.hash(user_password, 10)
 
-    // Insertar nuevo usuario
-    const newUser = {
-      user_handle,
-      email_address,
-      user_password: hashedPassword,
-      first_name,
-      last_name
-    }
-
-    const { error: insertError } = await supabase
+    // ✅ Insertar usuario en Supabase
+    const { data, error } = await supabase
       .from('user')
-      .insert(newUser)
+      .insert([
+        {
+          first_name,
+          last_name,
+          user_handle,
+          email_address,
+          user_password: hashedPassword
+        }
+      ])
+      .select()
+      .single()
 
-    if (insertError) {
-      console.error('Error de Supabase al registrar usuario:', insertError)
-      return res.status(500).json({ error: 'Error al registrar usuario' })
+    if (error) {
+      return res.status(500).json({ message: 'Error al registrar el usuario', error: error.message })
     }
 
-    res.status(201).json({ message: 'Usuario registrado con éxito' })
-  } catch (error) {
-    console.error('Error general:', error)
-    res.status(500).json({ error: 'Error interno del servidor' })
+    // ✅ Opcional: enviar correo de bienvenida
+    await sendEmail(data.email_address, data.user_handle)
+
+    res.status(201).json({ message: 'Usuario registrado correctamente', user: data })
+  } catch (err) {
+    console.error('❌ Error en registerUser:', err)
+    res.status(500).json({ message: 'Error interno del servidor', error: err.message })
   }
 }

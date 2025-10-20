@@ -1,15 +1,18 @@
+/* eslint-disable camelcase */
 import express from 'express'
 import session from 'express-session'
 import dotenv from 'dotenv'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import helmet from 'helmet'
+import cors from 'cors'
 
 import authRoutes from './public/routes/user.js'
 import Tareas from './public/routes/tarea.js'
 import Curso from './public/routes/curso.js'
 import { corsMiddleware } from './public/middlewares/cors.js'
 
+// Cargar variables de entorno
 dotenv.config()
 
 const app = express()
@@ -20,6 +23,11 @@ const __dirname = path.dirname(__filename)
 
 // Middleware CORS
 app.use(corsMiddleware())
+
+app.use(cors({
+  origin: 'http://localhost:3000', // el origen del frontend (Live Server, por ejemplo)
+  credentials: true
+}))
 
 // Helmet + CSP actualizado
 app.use(
@@ -75,6 +83,7 @@ app.use(session({
   cookie: {
     secure: false, // true si usas HTTPS en producción
     httpOnly: true,
+    sameSite: 'lax',
     maxAge: 1000 * 60 * 60 * 24 // 1 día
   }
 }))
@@ -82,7 +91,7 @@ app.use(session({
 // Servir archivos estáticos desde "public"
 app.use(express.static(path.join(__dirname, 'public')))
 
-// Ruta principal: abre login.html
+// Ruta principal: abre intro.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'intro.html'))
 })

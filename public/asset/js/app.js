@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-undef */
 const loginForm = document.getElementById('login-form')
 const registerForm = document.getElementById('register-form')
@@ -14,17 +15,16 @@ loginForm.addEventListener('submit', async (e) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ user_handle: userHandle, password })
+      body: JSON.stringify({ user_handle: userHandle, password }),
+      credentials: 'include'
     })
 
     const data = await res.json()
 
     if (res.ok) {
-      alert('Inicio de sesión exitoso')
-      console.log(data)
       localStorage.setItem('token', data.token)
       // ➡️ Aquí se guarda el nombre que viene del backend
-      localStorage.setItem('userName', data.user.user_handle)
+      localStorage.setItem('userHandle', data.user.user_handle)
       window.location.href = 'home.html'
     } else {
       alert(data.error || 'Error al iniciar sesión')
@@ -38,14 +38,16 @@ loginForm.addEventListener('submit', async (e) => {
 // Lógica para el formulario de REGISTRO
 registerForm.addEventListener('submit', async (e) => {
   e.preventDefault()
-  const nombre = registerForm.nombre.value
-  const apellido = registerForm.apellido.value
-  const email = registerForm.email.value
-  const user = registerForm.user_handle.value
-  const password = registerForm.password.value
-  const confirmarPassword = registerForm.confirmar_password.value
+  const first_name = registerForm.nombre.value.trim()
+  const last_name = registerForm.apellido.value.trim()
+  const email_address = registerForm.email.value.trim()
+  const user = registerForm.user_handle.value.trim()
+  const password = registerForm.user_password.value
+  // eslint-disable-next-line camelcase
+  const confirmar_Password = registerForm.confirmar_password.value
 
-  if (password !== confirmarPassword) {
+  // eslint-disable-next-line camelcase
+  if (password !== confirmar_Password) {
     alert('Las contraseñas no coinciden')
     return
   }
@@ -57,21 +59,20 @@ registerForm.addEventListener('submit', async (e) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        first_name: nombre,
-        last_name: apellido,
-        email_address: email,
+        first_name,
+        last_name,
+        email_address,
         user_handle: user,
-        user_password: password
+        user_password: password,
+        confirmar_Password
       })
     })
 
     const data = await res.json()
 
     if (res.ok) {
-      alert('Registro exitoso')
-      console.log(data)
       // Usa el user_handle del formulario como fallback
-      localStorage.setItem('userName', user)
+      localStorage.setItem('userHandle', user)
       window.location.href = 'home.html'
     } else {
       alert(data.error || 'Error al registrarse')

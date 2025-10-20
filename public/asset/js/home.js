@@ -1,10 +1,11 @@
+/* eslint-disable no-undef */
 document.addEventListener('DOMContentLoaded', () => {
   const listaTareas = document.getElementById('lista-tareas')
   const btnAgregar = document.getElementById('agregar')
 
-
   // Verificar si Flatpickr está disponible
   if (typeof flatpickr !== 'undefined') {
+    // eslint-disable-next-line no-undef
     flatpickr('#calendar-label', {
       defaultDate: 'today',
       dateFormat: 'd-m-Y',
@@ -17,15 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Flatpickr no está definido. Asegúrate de incluir la librería Flatpickr en tu HTML.')
   }
 
-// Mostrar el nombre de usuario guardado en localStorage
-document.addEventListener('DOMContentLoaded', () => {
+  // Mostrar el nombre de usuario guardado en localStorage
   const userHandle = localStorage.getItem('userHandle')
   if (userHandle) {
     document.getElementById('nombre_usuario').textContent = userHandle
   } else {
-    // Si no existe el handle, puedes dejar un texto vacío o un mensaje
     document.getElementById('nombre_usuario').textContent = ''
   }
+
   function crearTarea () {
     const tarea = document.createElement('div')
     tarea.classList.add('tarea')
