@@ -3,37 +3,49 @@
 const loginForm = document.getElementById('login-form')
 const registerForm = document.getElementById('register-form')
 
-// Lógica para el formulario de LOGIN
+// guardar sesión y redirigir al home
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault()
-  const userHandle = loginForm.user_handle.value
+
+  const user_handle = loginForm.user_handle.value
   const password = loginForm.password.value
 
   try {
-    const res = await fetch('http://localhost:3000/api/users/login', {
+    const res = await fetch('http://localhost:3000/api/user/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ user_handle: userHandle, password }),
-      credentials: 'include'
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_handle, password })
     })
 
     const data = await res.json()
 
     if (res.ok) {
+      // ✅ Guardar sesión localmente
+      localStorage.setItem('user', JSON.stringify(data.user))
       localStorage.setItem('token', data.token)
-      // ➡️ Aquí se guarda el nombre que viene del backend
-      localStorage.setItem('userHandle', data.user.user_handle)
-      window.location.href = 'home.html'
+
+      alert('Inicio de sesión exitoso 🎉')
+      window.location.href = 'home.html' // redirige al home
     } else {
-      alert(data.error || 'Error al iniciar sesión')
+      alert(data.message || 'Error al iniciar sesión')
     }
-  } catch (error) {
-    console.error('Error de red:', error)
-    alert('Error al conectar con el servidor')
+  } catch (err) {
+    console.error('Error:', err)
+    alert('Hubo un problema con el servidor.')
   }
 })
+
+// Revisar si el usuario ya está logueado
+const user = JSON.parse(localStorage.getItem('user'))
+
+if (!user) {
+  // Si no hay usuario, lo mandamos al login
+  window.location.href = 'login.html'
+} else {
+  // Mostrar nombre en pantalla o consola
+  console.log('Usuario activo:', user.user_handle)
+  document.getElementById('username').textContent = user.user_handle
+}
 
 // Lógica para el formulario de REGISTRO
 registerForm.addEventListener('submit', async (e) => {
@@ -122,3 +134,10 @@ if (toggleConfirmPassword && confirmPasswordInput) {
     toggleConfirmPassword.classList.toggle('fa-eye-slash')
   })
 }
+
+// Lógica para cerrar sesión
+document.getElementById('logout').addEventListener('click', () => {
+  localStorage.removeItem('user')
+  localStorage.removeItem('token')
+  window.location.href = 'login.html'
+})

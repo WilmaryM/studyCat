@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { supabase } from '../../public/supabase/supabase.js'
+import { supabase } from '../../supabase/supabase.js'
 
 export const crearCurso = async (req, res) => {
   const { tema, descripcion, link } = req.body

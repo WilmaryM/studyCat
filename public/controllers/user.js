@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { supabase } from '../../public/supabase/supabase.js' // ⬅️ Asegúrate de que la ruta sea correcta
+import { supabase } from '../../supabase/supabase.js' // ⬅️ Asegúrate de que la ruta sea correcta
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import sendEmail from '../js/mail.js'

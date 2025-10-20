@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { supabase } from '../../public/supabase/supabase.js' // ⬅️ Asegúrate de que la ruta sea correcta
+import { supabase } from '../../supabase/supabase.js' // ⬅️ Asegúrate de que la ruta sea correcta
 
 // obtener todas las tareas
 export async function getTareas (req, res) {
